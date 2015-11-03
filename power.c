@@ -14,19 +14,30 @@ return p;
 
 float calc_power_i(float volt, float current){
 
-return 0;
+p = volt * current;
+
+return p;
 }
 
 int main(int argc, const char * argv[]){
-float v,r, result;
-char power = 'R';
+float v,r,c, result;
+char power;
 
-if(power == 'R'){
+printf("Enter R or I: \n");
+scanf("%c", &power);
+
+if(power == 'R' || 'r'){
 
 	printf("Enter v and r to calculate p: \n");
 	scanf("%f%f", &v, &r);
 	result = calc_power_r(v,r);
-	printf("%f\n", result);
+	printf("p = %f\n", result);
+}else if(power == 'I' || 'i'){
+	printf("Enter volt and current to calculate p: \n");
+	scanf("%f%f", &v, &c);
+	result = calc_power_i(v,c);
+	printf("p = %f\n", result);
+ 
 }  
 
 }
