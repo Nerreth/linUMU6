@@ -1,10 +1,11 @@
 #include <stdio.h>
 
-float calc_power_r (int volt, int resistance);
-float calc_power_i (int volt, int current);
+float calc_power_r (float volt, float resistance);
+float calc_power_i (float volt, float current);
 
 int main(int argc, const char * argv[]){
-	float v,r,c, result;
+	float v=0,r=0,c=0;
+	float result=0;
 	char power;
 
 	printf("Enter R or I: \n");
@@ -14,6 +15,7 @@ int main(int argc, const char * argv[]){
 
 		printf("Enter v and r to calculate p: \n");
 		scanf("%f%f", &v, &r);
+		
 		result = calc_power_r(v,r);
 		printf("p = %f\n", result);
 
