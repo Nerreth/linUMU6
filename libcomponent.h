@@ -7,6 +7,7 @@
  * Author: Fredrik Vestberg
  *
  */
+// Github: try #2
 
 #ifndef LIBCOMPONENT_H_ // Guard
 #define LIBCOMPONENT_H_
