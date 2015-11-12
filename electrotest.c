@@ -5,13 +5,14 @@
 float calc_power_r (float volt, float resistance);
 float calc_power_i (float volt, float current);
 int e_resistance(float orig_resistance, float *res_array);
+float calc_resistance(int count, char conn, float* array);
 
 
 int main(int argc, const char *argv[])
 {
     float   volt = 0.0f;
     float   current = 0.0f;
-	float 	watt = 0.0;
+    float   watt = 0.0;
     char    connectionType = 0;
     int     resistorCount = 0;
     float*  resistorArray = 0;
@@ -27,33 +28,44 @@ int main(int argc, const char *argv[])
 
     resistorArray = malloc(3 * sizeof(float));
 
-    for (int i = 0; i < resistorCount; ++i)
+    int i;
+    for (i = 0; i < resistorCount; ++i)
     {
         printf("Komponent %d i ohm: ", i + 1);
         scanf("%f", &resistorArray[i]);
     }
-	
-//Fix me: resistance ska ändras till det vi kallar ersättningsmotståndet.
-	watt = calc_power_i(volt, resistance);
-	printf("Effekt: %f", watt);
-	
+
+    float substitutResistance = calc_resistance(resistorCount, connectionType
+                                                , resistorArray);
+
+    if (substitutResistance < 0)
+    {
+        printf("En eller flera argument är icke gilltiga. Programmet avslutas.\n");
+        free(resistorArray);
+        return 0;
+    }
+    else
+    {
+        printf("Ersättningsresistans: %f\n", substitutResistance);
+    }
+
+
+    watt = calc_power_i(volt, substitutResistance);
+    printf("Effekt: %f\n", watt);
 
 	// Skriv ut ersättningsresistanser i E12serien
 	printf("Ersättningsresistanser i E12­serien kopplade i serie:");
-	// Vi återanvänder resistorArray, så vi nollar alla värden för säkerhets skull
+
+    float replacementArray[3] = {};
+	// Anropa e_resistance med ersättningsresistansen och pekningen till
+    // repacementArray
+	// och få tillbaka antalet ersättningsresistanser i E12serien samt att dess värden lagras i replacementArray
+	int count = e_resistance(substitutResistance, replacementArray);
+	// Gå genom hela replacementArray och skriv ut dess innehåll
 	int indx = 0; // index variabel att använda vid loopar
-	for (indx = 0; indx < (int)(sizeof(resistorArray)/sizeof(resistorArray[0])); indx++)
-	{
-		resistorArray[indx] = 0.0; // Nolla
-	}
-//Fix me: ändra variabel 'resistance' till det variabelnamn som motsvarar "Ersättningsresistans"
-	// Anropa e_resistance med ersättningsresistansen och pekningen till resistorArray
-	// och få tillbaka antalet ersättningsresistanser i E12serien samt att dess värden lagras i resistorArray
-	int count = e_resistance(resistance, resistorArray);
-	// Gå genom hela resistorArray och skriv ut dess innehåll
 	for (indx = 0; indx < count; indx++)
 	{
-		printf(" %g", resistorArray[indx]);
+		printf(" %g", replacementArray[indx]);
 		// Undersök om vi kommer skriva ut mer genom att undersöka om loopen är klar efter denna vända eller inte
 		if (indx + 1 < count)
 		{
