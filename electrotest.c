@@ -50,11 +50,11 @@ int main(int argc, const char *argv[])
     }
 
 
-    watt = calc_power_r(volt, substitutResistance);
+    watt = calc_power_i(volt, substitutResistance);
     printf("Effekt: %f\n", watt);
 
 	// Skriv ut ersättningsresistanser i E12serien
-	printf("Ersättningsresistanser i E12­serien kopplade i serie:");
+	printf("Ersättningsresistanser i E12­serien kopplade i serie:");
 
     float replacementArray[3] = {};
 	// Anropa e_resistance med ersättningsresistansen och pekningen till
