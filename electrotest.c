@@ -50,7 +50,7 @@ int main(int argc, const char *argv[])
     }
 
 
-    watt = calc_power_i(volt, substitutResistance);
+    watt = calc_power_r(volt, substitutResistance);
     printf("Effekt: %f\n", watt);
 
 	// Skriv ut ersättningsresistanser i E12serien
