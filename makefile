@@ -3,7 +3,7 @@ all:
 		gcc -fPIC resistance.c -shared -o lib/libresistance.so
 		gcc -fPIC component.c -shared -o lib/libcomponent.so
 		gcc -fPIC power.c -shared -o lib/libpower.so
-		gcc -o electrotest electrotest.c -L. -lresistance -lpower -lcomponent -Wl,-rpath,lib/.
+		gcc -o electrotest electrotest.c -L./lib -lresistance -lpower -lcomponent -Wl,-rpath,'$$ORIGIN/lib'
 
 lib:
 		gcc -fPIC resistance.c -shared -o libresistance.so
