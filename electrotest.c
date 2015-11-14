@@ -16,6 +16,7 @@ int main(int argc, const char *argv[])
     char    connectionType = 0;
     int     resistorCount = 0;
     float*  resistorArray = 0;
+    float*  replacementArray = 0;
 
     printf("Ange spänning i Volt: ");
     scanf("%f", &volt);
@@ -26,7 +27,7 @@ int main(int argc, const char *argv[])
     printf("Antal komponenter: ");
     scanf("%d", &resistorCount);
 
-    resistorArray = malloc(3 * sizeof(float));
+    resistorArray = malloc(resistorCount * sizeof(float));
 
     int i;
     for (i = 0; i < resistorCount; ++i)
@@ -55,10 +56,9 @@ int main(int argc, const char *argv[])
 
 	// Skriv ut ersättningsresistanser i E12serien
 	printf("Ersättningsresistanser i E12­serien kopplade i serie:");
-
-    float replacementArray[3] = {};
-	// Anropa e_resistance med ersättningsresistansen och pekningen till
-    // repacementArray
+	// Allokera minne för replacementArray så den kan spara 3 element
+    replacementArray = malloc(3 * sizeof(float));
+	// Anropa e_resistance med ersättningsresistansen och pekningen till repacementArray
 	// och få tillbaka antalet ersättningsresistanser i E12serien samt att dess värden lagras i replacementArray
 	int count = e_resistance(substitutResistance, replacementArray);
 	// Gå genom hela replacementArray och skriv ut dess innehåll
@@ -78,7 +78,8 @@ int main(int argc, const char *argv[])
 		}
 	}
 
-	// Frigör minnet som resistorArray har allokerat
+	// Frigör minnet som resistorArray och replacementArray har allokerat
 	free(resistorArray);
+	free(replacementArray);
     return 0;
 }
