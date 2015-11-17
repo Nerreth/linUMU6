@@ -16,6 +16,6 @@ install:
 		gcc -fPIC resistance.c -shared -o lib/libresistance.so
 		gcc -fPIC component.c -shared -o lib/libcomponent.so
 		gcc -fPIC power.c -shared -o lib/libpower.so
-		gcc -o electrotest electrotest.c -L. -lresistance -lpower -lcomponent
+		gcc -o electrotest electrotest.c -L./lib -lresistance -lpower -lcomponent
 		sudo cp electrotest /usr/bin
 		sudo cp lib/* /usr/lib
