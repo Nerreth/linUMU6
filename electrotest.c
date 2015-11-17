@@ -19,7 +19,7 @@ int main()
     float   volt = 0.0f; // Antalet volt
     float   current = 0.0f; // Antalet ampere
     float   watt = 0.0f; // Antalet watt
-    char    connectionType = 0; // Kopplingstyp, (0)serie och (1)parallell
+    char    connectionType = 0; // Kopplingstyp, (S)serie och (P)parallell
     int     resistorCount = 0; // Antalet resistorer
     float*  resistorArray = 0; // Pekare för resistansen för varje resistor
     float*  replacementArray = 0; // Pekare för resistansen för varje E12 resistor
